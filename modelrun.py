@@ -24,8 +24,12 @@ def crolling(region):
     temperature = temp.get_text()
     temperature = float(temperature[6:10])  # 온도 부분만 추출 + float
     humidity = summary[1].get_text()
-    humidity = float(humidity[0:2])  # 습도 부분만 추출 + float
-
+    print(type(humidity))
+    if(humidity == "100%") :
+        humidity = float(humidity[0:3])
+    else :
+        humidity = float(humidity[0:2])  # 습도 부분만 추출 + float
+    print(humidity)
     result = [temperature,humidity]
     return result
 
