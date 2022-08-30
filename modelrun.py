@@ -6,6 +6,7 @@ import joblib
 from urllib.parse import quote
 import numpy as np
 from sklearn import tree
+from datetime import date
 
 # run server
 app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, template_folder = ~)
@@ -14,8 +15,8 @@ app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, templa
 
 def crolling(region):
     region = quote(region)
-    webpage = urllib.request.urlopen(
-        "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=" + region)
+    url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="
+    webpage = urllib.request.urlopen( url + region)
     soup = BeautifulSoup(webpage, 'html.parser')
     temp = soup.find('div', 'temperature_text')  # 현재온도
     summary = soup.find('dl', 'summary_list')  # 습도
@@ -31,8 +32,8 @@ def crolling(region):
 
 @app.route("/")
 def predict():
-    region = "대구광역시 달성군 날씨"
-    month = 3
+    region = "대구광역시 달서구 날씨"
+    month = date.today().month
     result = crolling(region)
     result = np.array(result)
 
