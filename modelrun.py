@@ -47,15 +47,15 @@ def predict():
         risk = rf_model.predict(result)
 
     elif (month < 7):
-        rf_model = joblib.load('./model/randomforest4.pkl')
+        rf_model = joblib.load('./randomforest4.pkl')
         risk = rf_model.predict(result)
 
     elif (month < 10):
-        rf_model = joblib.load('./model/randomforest7.pkl')
+        rf_model = joblib.load('./randomforest7.pkl')
         risk = rf_model.predict(result)
 
     else:
-        rf_model = joblib.load('./model/randomforest10.pkl')
+        rf_model = joblib.load('./randomforest10.pkl')
         risk = rf_model.predict(result)
 
     # 모델에 result 값 넣어서 계산 ->rist 저장
@@ -70,4 +70,4 @@ def predict():
     return str(message)
 
 
-app.run(port=2222)
+app.run(host="0.0.0.0",port=2222)
