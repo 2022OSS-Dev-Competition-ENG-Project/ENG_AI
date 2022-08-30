@@ -14,7 +14,7 @@ app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, templa
 
 
 def crolling(region):
-    region = quote(region)
+    region = quote(region+" 날씨")
     url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="
     webpage = urllib.request.urlopen( url + region)
     soup = BeautifulSoup(webpage, 'html.parser')
@@ -36,6 +36,7 @@ def predict():
     region = params["facilityAddress"]
     region = region.split()
     region = region[0] + region[1] + region[2]
+    print(region)
     month = date.today().month
     result = crolling(region)
     result = np.array(result)
