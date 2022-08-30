@@ -70,4 +70,4 @@ def predict():
     return str(message)
 
 
-app.run(debug=True)
+app.run(port=2222)
