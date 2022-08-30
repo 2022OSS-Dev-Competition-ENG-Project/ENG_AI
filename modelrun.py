@@ -30,9 +30,12 @@ def crolling(region):
     return result
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=['POST'])
 def predict():
-    region = "대구광역시 달서구 날씨"
+    params = request.get_json()
+    region = params["facilityAddress"]
+    region = region.split()
+    region = region[0] + region[1] + region[2]
     month = date.today().month
     result = crolling(region)
     result = np.array(result)
@@ -70,4 +73,4 @@ def predict():
     return str(message)
 
 
-app.run(host="0.0.0.0",port=2222)
+app.run(host="0.0.0.0", port=2222)
