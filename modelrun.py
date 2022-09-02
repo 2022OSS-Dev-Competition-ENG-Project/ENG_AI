@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request
-#from flask_ngrok import run_with_ngrok
 import urllib.request
 from bs4 import BeautifulSoup
 import joblib
 from urllib.parse import quote
-import numpy as np
-from sklearn import tree
 from datetime import date
+import numpy as np
+
+from flask import jsonify
+
+
 
 # run server
 app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, template_folder = ~)
@@ -24,17 +26,19 @@ def crolling(region):
     temperature = temp.get_text()
     temperature = float(temperature[6:10])  # 온도 부분만 추출 + float
     humidity = summary[1].get_text()
-    print(type(humidity))
     if(humidity == "100%") :
         humidity = float(humidity[0:3])
     else :
         humidity = float(humidity[0:2])  # 습도 부분만 추출 + float
     print(humidity)
+    print(temperature)
+
+
     result = [temperature,humidity]
     return result
 
 
-@app.route("/", methods=['POST'])
+@app.route("/api/ai/firePredict", methods=['POST'])
 def predict():
     params = request.get_json()
     region = params["facilityAddress"]
@@ -70,12 +74,14 @@ def predict():
 
     temperature = str(result[0][0])
     humidity = str(result[0][1])
-    risk = str(risk)
+    risk = int(risk)
 
-    message = "<h1> here </h1>"
-    message += temperature +" "+ humidity +" "+ risk
+    dic = {"temperature" : temperature, "humidity" : humidity, "riskDegree" : risk}
 
-    return str(message)
+
+    return jsonify(dic)
+
 
 
 app.run(host="0.0.0.0", port=2222)
+
