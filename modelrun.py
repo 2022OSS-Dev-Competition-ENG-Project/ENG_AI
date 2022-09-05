@@ -5,8 +5,13 @@ import joblib
 from urllib.parse import quote
 from datetime import date
 import numpy as np
-
+from tensorflow import keras
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from flask import jsonify
+import tensorflow_hub as hub
+
+import os 
+import shutil
 
 
 
@@ -17,6 +22,7 @@ app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, templa
 #run_with_ngrok(app)
 
 CORS(app, resources={r'*': {'origins': '*'}})
+
 
 
 def crolling(region):
@@ -43,7 +49,7 @@ def crolling(region):
 
 
 @app.route("/api/ai/firePredict", methods=['POST','GET'])
-def predict():
+def firePredict():
     params = request.get_json()
     region = params["facilityAddress"]
     region = region.split()
@@ -85,9 +91,62 @@ def predict():
 
     return jsonify(dic)
 
+@app.route("/api/ai/leakPredict", methods=['POST','GET'])
+def leakPredict():
+    
+    print("------->> request.form" + str(request.form['uuid']))
+    uuid = str(request.form['uuid'])
+    print("------>>" + uuid)
+    basicPath = "./"+uuid
+    leakPath = "./"+uuid+"/leak"
+    nomalPath = "./"+uuid+"/nomal"
+    os.mkdir(basicPath)
+    os.mkdir(leakPath)
+    os.mkdir(nomalPath)
+    
+    f = request.files['file']
+    f.save(leakPath+"/"+uuid+"leak.jpeg")
+    
+    
+    cnnModel = keras.models.load_model('./CNNModelSigmoid.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+
+    leakImage = ImageDataGenerator(rescale=1.0/255.0)
+    leakImageGenerator = leakImage.flow_from_directory(basicPath+"/",
+                                            target_size=(255,255),
+                                            color_mode="rgb",
+                                            class_mode="categorical")
 
 
-app.run(host="0.0.0.0", port=2222)
-#app.run()
+    pre = cnnModel.predict(leakImageGenerator)
+    print(pre)
+    leakDegree = pre[0][0]
+    
+    
+    #shutil.rmtree(basicPath)
+    
+    
+    if (leakDegree > 0.90) :
+    
+        result = 3
+        
+    elif (leakDegree > 0.80) :
+        
+        result = 2
+    
+    elif (leakDegree > 0.50) :
+        
+        result = 1
+        
+    else:
+        
+        result = 0
+        
+        
+    return jsonify(result)
+    
+    
+
+#app.run(host="0.0.0.0", port=2222)
+app.run()
 
 
