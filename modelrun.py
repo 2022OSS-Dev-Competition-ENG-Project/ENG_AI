@@ -122,7 +122,7 @@ def leakPredict():
     leakDegree = pre[0][0]
     
     
-    #shutil.rmtree(basicPath)
+    shutil.rmtree(basicPath)
     
     
     if (leakDegree > 0.90) :
