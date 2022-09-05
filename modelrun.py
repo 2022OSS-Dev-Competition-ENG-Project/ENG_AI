@@ -11,8 +11,12 @@ from flask import jsonify
 
 
 # run server
+from flask_cors import CORS
+
 app = Flask(__name__)  # folder 폴더 위치 (웹) app = Flask(__name__, template_folder = ~)
 #run_with_ngrok(app)
+
+CORS(app, resources={r'*': {'origins': '*'}})
 
 
 def crolling(region):
@@ -38,7 +42,7 @@ def crolling(region):
     return result
 
 
-@app.route("/api/ai/firePredict", methods=['POST'])
+@app.route("/api/ai/firePredict", methods=['POST','GET'])
 def predict():
     params = request.get_json()
     region = params["facilityAddress"]
@@ -83,5 +87,7 @@ def predict():
 
 
 
-app.run(host="0.0.0.0", port=2222)
+#app.run(host="0.0.0.0", port=2222)
+app.run()
+
 
