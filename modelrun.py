@@ -87,7 +87,7 @@ def predict():
 
 
 
-#app.run(host="0.0.0.0", port=2222)
-app.run()
+app.run(host="0.0.0.0", port=2222)
+#app.run()
 
 
