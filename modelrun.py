@@ -54,13 +54,11 @@ def firePredict():
     region = params["facilityAddress"]
     region = region.split()
     region = region[0] + region[1] + region[2]
-    print(region)
     month = date.today().month
     result = crolling(region)
     result = np.array(result)
 
     result = result.reshape(1,2)
-    print(result.shape)
 
 
 
@@ -94,9 +92,8 @@ def firePredict():
 @app.route("/api/ai/leakPredict", methods=['POST','GET'])
 def leakPredict():
     
-    print("------->> request.form" + str(request.form['uuid']))
+
     uuid = str(request.form['uuid'])
-    print("------>>" + uuid)
     basicPath = "./"+uuid
     leakPath = "./"+uuid+"/leak"
     nomalPath = "./"+uuid+"/nomal"
@@ -109,38 +106,45 @@ def leakPredict():
     
     
     cnnModel = keras.models.load_model('./CNNModelSigmoid.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
-
+    cellingModel = keras.models.load_model('./CNNCelling.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     leakImage = ImageDataGenerator(rescale=1.0/255.0)
     leakImageGenerator = leakImage.flow_from_directory(basicPath+"/",
                                             target_size=(255,255),
                                             color_mode="rgb",
                                             class_mode="categorical")
 
-
-    pre = cnnModel.predict(leakImageGenerator)
-    print(pre)
-    leakDegree = pre[0][0]
+    celPre = cellingModel.predict(leakImageGenerator)
+    celling = celPre[0][0]
+    
+    if (celling > 0.8) : 
+        pre = cnnModel.predict(leakImageGenerator)
+        print(pre)
+        leakDegree = pre[0][0]
     
     
-    shutil.rmtree(basicPath)
+        shutil.rmtree(basicPath)
     
     
-    if (leakDegree > 0.90) :
+        if (leakDegree > 0.90) :
     
-        result = 3
+            result = 3
         
-    elif (leakDegree > 0.80) :
+        elif (leakDegree > 0.80) :
         
-        result = 2
+            result = 2
     
-    elif (leakDegree > 0.50) :
+        elif (leakDegree > 0.50) :
         
-        result = 1
+            result = 1
         
-    else:
+        else:
         
-        result = 0
+            result = 0
+    
+    else :
         
+        shutil.rmtree(basicPath)
+        result = 4
         
     return jsonify(result)
     
