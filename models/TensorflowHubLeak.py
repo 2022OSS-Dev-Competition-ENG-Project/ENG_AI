@@ -55,13 +55,13 @@ valid_generator = valid.flow_from_directory(test_dir,
 
 
 model.compile(loss='binary_crossentropy',  # 손실함수 설정
-             optimizer='adam',  #
+             optimizer='adam',  # 최적화 알고리즘 => adam
              metrics=['accuracy'])
 
 # 모델 학습 
 history = model.fit(train_generator,  
                    epochs=10,
                    validation_data=valid_generator, 
-                   verbose=2)
+                   verbose=2) # 함축적인 정보만 출력
 
 model.save('ModelSigmoid.h5') #모델 저장
