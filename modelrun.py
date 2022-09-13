@@ -62,19 +62,19 @@ def firePredict():
 
     # 분기별로 각자 다른 모델 실행
     if (month < 4): 
-        rf_model = joblib.load('./randomforest1.pkl')
+        rf_model = joblib.load('./models/randomforest1.pkl')
         risk = rf_model.predict(result)
 
     elif (month < 7):
-        rf_model = joblib.load('./randomforest4.pkl')
+        rf_model = joblib.load('./models/randomforest4.pkl')
         risk = rf_model.predict(result)
 
     elif (month < 10):
-        rf_model = joblib.load('./randomforest7.pkl')
+        rf_model = joblib.load('./models/randomforest7.pkl')
         risk = rf_model.predict(result)
 
     else:
-        rf_model = joblib.load('./randomforest10.pkl')
+        rf_model = joblib.load('./models/randomforest10.pkl')
         risk = rf_model.predict(result)
 
     # 모델에 result 값 넣어서 계산 ->rist 저장
