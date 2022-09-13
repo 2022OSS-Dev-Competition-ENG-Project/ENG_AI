@@ -27,7 +27,7 @@ colab, spyder
 
 ```
 
-## 필요 라이브러리
+## 사용 라이브러리
 
 ``` python
 Beautifulsoup4 4.11.1
