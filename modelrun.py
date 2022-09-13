@@ -18,9 +18,9 @@ import shutil
 # run server
 from flask_cors import CORS
 
-app = Flask(__name__)  
-
-CORS(app, resources={r'*': {'origins': '*'}})
+app = Flask(__name__)   # Flask객체 할당
+ 
+CORS(app, resources={r'*': {'origins': '*'}}) # 모든 곳에서 호출하는 것을 허용
 
 
 
@@ -28,13 +28,13 @@ def crolling(region):
     region = quote(region+" 날씨") 
     url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=" # 네이버 날씨검색 url
     webpage = urllib.request.urlopen(url + region) # 네이버 주소와 입력받은 주소를 합친 url 선언
-    soup = BeautifulSoup(webpage, 'html.parser')
-    temp = soup.find('div', 'temperature_text')  # 현재온도가 있는 부분 저장
-    summary = soup.find('dl', 'summary_list')  # 습도가 있는 부분 저장
-    summary = summary.findAll('dd') 
-    temperature = temp.get_text()
+    soup = BeautifulSoup(webpage, 'html.parser') # html 파싱
+    temp = soup.find('div', 'temperature_text')  # 현재온도가 있는 태그 저장
+    summary = soup.find('dl', 'summary_list')  # 습도가 있는 태그 저장
+    summary = summary.findAll('dd') # dl태그 안의 dd 태그 저장
+    temperature = temp.get_text() #텍스트로 변환 
     temperature = float(temperature[6:10])  # 온도 부분만 추출 => float형으로 저장
-    humidity = summary[1].get_text()
+    humidity = summary[1].get_text() #텍스트로 변환
     if(humidity == "100%") :
         humidity = float(humidity[0:3]) # 습도 부분만 추추 => float형으로 저장
     else :
