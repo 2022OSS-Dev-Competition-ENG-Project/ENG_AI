@@ -19,7 +19,7 @@ test_dir = "./test"   #테스트사진 폴더 경로 저장
 model = tf.keras.Sequential([
     hub.KerasLayer("https://tfhub.dev/google/imagenet/resnet_v2_152/feature_vector/4",
                    input_shape=(255,255,3),  # 사이즈 255,255에 컬러가 있는 3차원
-                   trainable=False),
+                   trainable=False), # 가중치 변경 x
     tf.keras.layers.Dense(2, activation='sigmoid') # 누수를 판별하기 위한 층 추가
 ])
 
@@ -47,11 +47,11 @@ valid_generator = valid.flow_from_directory(test_dir, # 경로 설정
                                             shuffle=True, # 데이터를 뒤섞음
                                             class_mode="categorical") # 반환될 라벨 배열의 종류 설정
 
-model.compile(loss='binary_crossentropy',
-             optimizer='adam',
-             metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', # 손실함수 설정
+             optimizer='adam', # 최적화 알고리즘 => adam
+             metrics=['accuracy']) 
 
 history = model.fit(train_generator, 
                    epochs=10,
                    validation_data=valid_generator,
-                   verbose=2)
+                   verbose=2) # 함축적인 정보만 출력
