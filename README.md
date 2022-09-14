@@ -43,6 +43,19 @@ tensorflow 2.9.2
 tensorflow-hub 0.12.0
 urllib3 1.26.5
 Joblib 1.1.0
-Pillow 9.0.1
 
+```
+
+## 라이브러리 설치법
+
+``` Python
+pip install Flask == 2.2.2
+pip install Flask-Cord == 3.0.10
+pip install Keras == 2.9.0
+pip install Numpy == 1.23.2
+pip install Pandas == 1.4.3
+pip install Scikit-learn == 1.1.2
+pip install tensorflow == 2.9.2
+pip install tesorflow-hub == 0.12.0
+pip install Beautifulsoup4 == 4.11.1
 ```
