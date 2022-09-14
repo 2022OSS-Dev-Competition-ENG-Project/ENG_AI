@@ -49,14 +49,6 @@ Joblib 1.1.0
 ## 필요 라이브러리 설치법
 
 ``` Python
-pip install flask == 2.2.2
-pip install flask-Cord == 3.0.10
-pip install keras == 2.9.0
-pip install numpy == 1.23.2
-pip install pandas == 1.4.3
-pip install scikit-learn == 1.1.2
-pip install tensorflow == 2.9.2
-pip install tesorflow-hub == 0.12.0
-pip install meautifulsoup4 == 4.11.1
-pip install requests == 2.25.1
+pip install "라이브러리" == "버전"
+
 ```
