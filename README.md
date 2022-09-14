@@ -11,11 +11,6 @@
     - 천장 구별 모델 (Transfer Learning)
     - 누수 확인 모델 (Transfer Learning)
 
-## 설치
-
-
-## 프로젝트 초기 설정
-
 
 
 
