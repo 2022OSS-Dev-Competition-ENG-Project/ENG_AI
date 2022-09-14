@@ -49,6 +49,13 @@ Joblib 1.1.0
 ## 필요 라이브러리 설치법
 
 ``` Python
+# pip 업그레이드
+pip install --upgrade pip
+
+# 설치된 라이브러리 확인
+pip list
+
+# 특정 라이브러리 설치
 pip install "라이브러리" == "버전"
 
 ```
