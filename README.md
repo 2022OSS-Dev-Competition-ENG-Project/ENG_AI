@@ -46,7 +46,7 @@ Joblib 1.1.0
 
 ```
 
-## 라이브러리 설치법
+## 필요 라이브러리 설치법
 
 ``` Python
 pip install Flask == 2.2.2
