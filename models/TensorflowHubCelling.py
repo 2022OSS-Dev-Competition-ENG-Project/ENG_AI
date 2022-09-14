@@ -55,3 +55,5 @@ history = model.fit(train_generator,
                    epochs=10,
                    validation_data=valid_generator,
                    verbose=2) # 함축적인 정보만 출력
+
+model.save('ModelCelling.h5') # 모델 저장
