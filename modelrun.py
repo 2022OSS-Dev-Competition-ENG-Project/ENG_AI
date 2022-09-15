@@ -128,7 +128,7 @@ def leakPredict():
     celPre = cellingModel.predict(leakImageGenerator) # 예측 실행
     celling = celPre[0][0] # 천장일 확률을 저장 
     
-    if (celling > 0.8) : # 천장일 확률이 80퍼 이상이면 
+    if (celling > 0.8) : # 천장일 확률이 80퍼 초과시 
         pre = cnnModel.predict(leakImageGenerator) #누수 판별 모델 실행
         leakDegree = pre[0][0] # 누수확률 저장 
     
