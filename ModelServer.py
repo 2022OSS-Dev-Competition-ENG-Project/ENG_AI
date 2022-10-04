@@ -62,19 +62,19 @@ def firePredict():
 
     # 분기별로 각자 다른 모델 실행
     if (month < 4): 
-        rf_model = joblib.load('./models/randomforest1.pkl')
+        rf_model = joblib.load('./models/FirePredict1M.pkl')
         risk = rf_model.predict(result)
 
     elif (month < 7):
-        rf_model = joblib.load('./models/randomforest4.pkl')
+        rf_model = joblib.load('./models/FirePredict4M.pkl')
         risk = rf_model.predict(result)
 
     elif (month < 10):
-        rf_model = joblib.load('./models/randomforest7.pkl')
+        rf_model = joblib.load('./models/FirePredict7M.pkl')
         risk = rf_model.predict(result)
 
     else:
-        rf_model = joblib.load('./models/randomforest10.pkl')
+        rf_model = joblib.load('./models/FirePredict10M.pkl')
         risk = rf_model.predict(result)
 
     # 모델에 result 값 넣어서 계산 ->rist 저장
@@ -163,7 +163,7 @@ def leakPredict():
     
     
 
-app.run(host="0.0.0.0", port=2222) #서버 실행 
-#app.run() #로컬 테스트 확인용 
+#app.run(host="0.0.0.0", port=2222) #서버 실행
+app.run() #로컬 테스트 확인용 
 
 
