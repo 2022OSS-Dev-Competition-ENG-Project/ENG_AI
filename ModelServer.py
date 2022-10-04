@@ -111,10 +111,10 @@ def leakPredict():
     
     
     # 누수 판별을 위한 모델 로드
-    cnnModel = keras.models.load_model('./CNNModelSigmoid.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+    cnnModel = keras.models.load_model('./LeakDistinguishment.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     
     # 사진이 천장인지 아닌지를 판별할 모델 로드
-    cellingModel = keras.models.load_model('./CNNCelling.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
+    cellingModel = keras.models.load_model('./CellingDistinguishment.h5', custom_objects={'KerasLayer':hub.KerasLayer}, compile = False)
     
     
     # 입력받은 이미지를 모델에 적용시키기 위한 전처리 단계
