@@ -9,10 +9,11 @@ from tensorflow import keras
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from flask import jsonify
 import tensorflow_hub as hub
+from PIL import Image
+
 
 import os 
 import shutil
-
 
 
 # run server
@@ -163,7 +164,7 @@ def leakPredict():
     
     
 
-#app.run(host="0.0.0.0", port=2222) #서버 실행
-app.run() #로컬 테스트 확인용 
+app.run(host="0.0.0.0", port=2222) #서버 실행
+#app.run() #로컬 테스트 확인용 
 
 
