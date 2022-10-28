@@ -33,7 +33,9 @@ def crolling(region):
     temp = soup.find('div', 'temperature_text')  # 현재온도가 있는 태그 저장
     summary = soup.find('dl', 'summary_list')  # 습도가 있는 태그 저장
     summary = summary.findAll('dd') # dl태그 안의 dd 태그 저장
-    temperature = temp.get_text() #텍스트로 변환 
+    temperature = temp.get_text() #텍스트로 변환
+    if(temperature[-2] == '°') :
+        temperature = temperature.replace("°","0")
     temperature = float(temperature[6:10])  # 온도 부분만 추출 => float형으로 저장
     humidity = summary[1].get_text() #텍스트로 변환
     if(humidity == "100%") :
